@@ -1,0 +1,32 @@
+---
+
+stages:
+  - lint
+  - test
+
+pylint:
+  stage: lint
+  image: snakepacker/python:all
+  before_script:
+    - python3.10 -m pip install poetry
+    - poetry install
+  script:
+    - poetry run pylint polly_shop tests
+
+pytest:
+  stage: test
+  image: snakepacker/python:all
+  services:
+    - name: postgres
+  variables:
+    POSTGRES_DB: polly_shop_db
+    POSTGRES_USER: master
+    POSTGRES_PASSWORD: password
+    POSTGRES_HOST: postgres
+    POSTGRES_PORT: 5432
+  before_script:
+    - python3.10 -m pip install poetry
+    - poetry install
+    - wait-for-port postgres:5432
+  script:
+    - poetry run pytest --verbosity=2 --showlocals --log-level=DEBUG --cov=polly_shop

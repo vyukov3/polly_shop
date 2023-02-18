@@ -1,5 +1,6 @@
 from os import environ
 
+from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseSettings
 
 
@@ -15,6 +16,7 @@ class DefaultSettings(BaseSettings):
     PATH_PREFIX: str = environ.get("PATH_PREFIX", "/api/v1")
     APP_HOST: str = environ.get("APP_HOST", "http://127.0.0.1")
     APP_PORT: int = int(environ.get("APP_PORT", 8000))
+    OAUTH2_SCHEME = OAuth2PasswordBearer(tokenUrl=f"{APP_HOST}:{APP_PORT}{PATH_PREFIX}/tokens")
 
     POSTGRES_DB: str = environ.get("POSTGRES_DB", "polly_shop_db")
     POSTGRES_HOST: str = environ.get("POSTGRES_HOST", "localhost")

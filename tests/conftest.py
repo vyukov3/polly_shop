@@ -71,7 +71,7 @@ def alembic_config(postgres) -> Config:
     """
     Создает файл конфигурации для alembic.
     """
-    cmd_options = SimpleNamespace(config="polly_shop/db/", name="alembic", pg_url=postgres, raiseerr=False, x=None)
+    cmd_options = SimpleNamespace(config="api/db/", name="alembic", pg_url=postgres, raiseerr=False, x=None)
     return make_alembic_config(cmd_options)
 
 

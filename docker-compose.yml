@@ -2,8 +2,6 @@ services:
   backend:
     build:
       context: .
-    volumes:
-      - ./logs:/app/logs
     network_mode: "host"
 
   db:
@@ -11,6 +9,6 @@ services:
     image: 'postgres:14'
     restart: always
     env_file:
-      - .env
+      - ./.env
     ports:
       - '${POSTGRES_PORT}:${POSTGRES_PORT}'

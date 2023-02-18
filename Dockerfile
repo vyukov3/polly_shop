@@ -1,7 +1,6 @@
 FROM python:3.10-bullseye
 
 RUN mkdir /app
-RUN mkdir /app/logs
 WORKDIR /app
 
 RUN pip install "poetry==1.2.2"
